@@ -1,9 +1,11 @@
 # gotail
-A golang version of the UNIX command "tail".
+A golang version of the UNIX command "tail"*.
 
-Can be used from the CLI (go install-ed) or imported into other golang projects.
+\* Minus a whole lot of features. But if you simply want to tail lines of text from a file, it works!
 
 ####Usage:
+Can be used from the CLI (go install-ed) or imported into other golang projects.
+
 CLI: Very similar to "tail":
 - `-file` : The path to the file you want to tail. Can be relative or absolute. (required)
 - `-n` : The number of lines to tail.
