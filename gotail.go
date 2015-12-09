@@ -20,11 +20,10 @@ var (
 	filename = ""
 	numLines = 10
 
-	//ERRORS
-	//the path the the file to tail was not given
+	//ErrNoFilename is thrown when the path the the file to tail was not given
 	ErrNoFilename = errors.New("You must provide the path to a file in the \"-file\" flag.")
 
-	//user provided 0 (zero) as the value for number of lines to tail
+	//ErrInvalidLineCount is thrown when the user provided 0 (zero) as the value for number of lines to tail
 	ErrInvalidLineCount = errors.New("You cannot tail zero lines.")
 )
 
@@ -52,7 +51,7 @@ func main() {
 	return
 }
 
-//FUNCTION THAT ACTUALLY DOES THE "TAILING"
+//GoTail IS THE FUNCTION THAT ACTUALLY DOES THE "TAILING"
 //this can be used this package is imported into other golang projects
 func GoTail(filename string, numLines int) (string, error) {
 	//MAKE SURE FILENAME IS GIVEN
@@ -104,7 +103,7 @@ func GoTail(filename string, numLines int) (string, error) {
 
 		//ignore if first character being read is a newline
 		if offset == int64(-1) && string(b) == "\n" {
-			offset -= 1
+			offset--
 			continue
 		}
 
@@ -112,13 +111,13 @@ func GoTail(filename string, numLines int) (string, error) {
 		//add this to the number of lines read
 		//and remember position in case we have reached our target number of lines
 		if string(b) == "\n" {
-			numNewLines += 1
+			numNewLines++
 			finalReadStartPos = startPos
 		}
 
 		//decrease offset for reading next character
 		//remember, we are reading backward!
-		offset -= 1
+		offset--
 	}
 
 	//READ TO END OF FILE
